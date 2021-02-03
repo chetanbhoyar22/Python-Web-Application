@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <script language="Javascript" type="text/javascript">
+            
+            
+            function createRequestObject() {
+                var tmpXmlHttpObject;
+                if (window.XMLHttpRequest) {
+                        tmpXmlHttpObject = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            
+                return tmpXmlHttpObject;
+            }
+            
+            
+            var http = createRequestObject();
+            
+            function makeGetRequest(ty) {
+                http.open('get', 'ShowTypeInfo.py?typ=' + ty);
+                http.onreadystatechange = processResponse;
+                http.send(null);
+            }
+            
+            function processResponse() {
+                if(http.readyState == 4){
+                    var response = http.responseText;
+                    document.getElementById('info').innerHTML = response;
+                }
+            }
+            
+            </script>
+    </head>
+    <body>
+        <center>
+        <h2>Hyperlinks and Ajax</h2>
+        <hr>
+        <a href="javascript:makeGetRequest('saving')">Saving</a> | 
+        <a href="javascript:makeGetRequest('fixed')">Fixed</a> | 
+        <a href="javascript:makeGetRequest('current')">Current</a>
+
+        <br><br>
+        <div id="info"></div>
+
+    </center>
+    </body>
+</html>

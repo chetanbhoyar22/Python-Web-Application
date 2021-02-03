@@ -1,0 +1,55 @@
+<html>
+    <head>
+
+        <script language="Javascript" type="text/javascript">
+            
+            
+            function createRequestObject() {
+                var tmpXmlHttpObject;
+                if (window.XMLHttpRequest) {
+                        tmpXmlHttpObject = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            
+                return tmpXmlHttpObject;
+            }
+            
+            
+            var http = createRequestObject();
+            
+            function makeGetRequest() {
+                ct=document.frm.city.value;
+                http.open('get', 'ShowWeather.py?city=' + ct);
+                http.onreadystatechange = processResponse;
+                http.send(null);
+            }
+            
+            function processResponse() {
+                if(http.readyState == 4){
+                    var response = http.responseText;
+                    document.getElementById('info').innerHTML = response;
+                }
+            }
+            
+            </script>
+
+
+    </head>
+    <body>
+        <center>
+        <h2>Finding weather...</h2>
+        <hr>
+        <form name="frm">
+            <b>City</b> <input type="text" name="city" required>
+            <input type="button" value="Search" onclick="makeGetRequest()">
+<br><br>
+
+<div id="info">
+<img src="weather.png" height="200px">    
+</div>
+
+        </form>
+    </center>
+    </body>
+</html>

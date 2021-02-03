@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script language="Javascript" type="text/javascript">
+            
+            
+            function createRequestObject() {
+                var tmpXmlHttpObject;
+                if (window.XMLHttpRequest) {
+                        tmpXmlHttpObject = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            
+                return tmpXmlHttpObject;
+            }
+            
+            
+            var http = createRequestObject();
+            
+            function makeGetRequest() {
+                no=document.frm.ano.value;
+                http.open('get', 'SearchAcc.py?ano=' + no);
+                http.onreadystatechange = processResponse;
+                http.send(null);
+            }
+            
+            function processResponse() {
+                if(http.readyState == 4){
+                    var response = http.responseText;
+                    document.getElementById('result').innerHTML = response;
+                }
+            }
+            
+            </script>
+    </head>
+    <body>
+        <center>
+        <h2>Search Account Information</h2>
+        <hr>
+        <form name="frm">
+            <b>Account Number </b><input type="text" name="ano" required>
+            <input type="button" value="Search" onclick="makeGetRequest()">
+            <br><br>
+            
+                <div id="result">
+                <img src="morning.gif">
+            </div>
+        </form>
+    </center>
+    </body>
+</html>

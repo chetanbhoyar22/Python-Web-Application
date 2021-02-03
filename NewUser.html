@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <script language="Javascript" type="text/javascript">
+            
+            
+            function createRequestObject() {
+                var tmpXmlHttpObject;
+                if (window.XMLHttpRequest) {
+                        tmpXmlHttpObject = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    tmpXmlHttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            
+                return tmpXmlHttpObject;
+            }
+            
+            
+            var http = createRequestObject();
+            
+            function makeGetRequest() {
+                id=document.frm.uid.value;
+                http.open('get', 'IdStatus.py?uid=' + id);
+                http.onreadystatechange = processResponse;
+                http.send(null);
+            }
+            
+            function processResponse() {
+                if(http.readyState == 4){
+                    var response = http.responseText;
+                    document.getElementById('stat').innerHTML = response;
+                }
+            }
+            
+            </script>
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+        <center>
+        <h1>User Registration</h1>
+        <hr>
+
+        <div class="container"></div>
+        <form method="POST" action="Register.py">
+            <table>
+                <tr>
+                    <td><br>UserID</td>
+                    <td><br><input type="text" name="uid" required></td>
+                </tr>
+                <tr>
+                    <td><br>Password</td>
+                    <td><br><input type="password" name="psw" required></td>
+                </tr>
+                <tr>
+                    <td><br>UserName</td>
+                    <td><br><input type="text" name="unm" required></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><br><input type="submit" value="Submit"></td>
+                   
+                </tr>
+            </table>
+        </form>
+    </center>
+    </body>
+</html>
